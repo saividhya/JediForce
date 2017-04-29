@@ -1,8 +1,12 @@
-progfile=input("enter filename with path")
+import sys
+progfile=sys.argv[1]
 list={}
 filename='name.txt'
 def printlis(list):
-    file=open('output.txt','w')
+    name='output'+str(sys.argv[1])
+    file=open('output.txt','a')
+    if len(list)>1:
+        file.write("FILE NAME"+name+"\n")
     for key,value in list.items():
         file.write(key+"\n")
         words=value.split('$')
@@ -29,5 +33,5 @@ for num,line in enumerate(f,1):
             insert(wordlist[j],line.replace("\n",""),num)
             #insert(line,num)
 printlis(list)
-print(list)
+#print(list)
 
