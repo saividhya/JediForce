@@ -1,15 +1,18 @@
 import os
 import subprocess
-def overflow(filePath):
+def overflow(filePath, opt):
 	bufValue = 'JEDI'
 	c = 0
 	while True:
-		command = 'echo \'y\' | gdb '+ filePath +' -ex \'run '+ bufValue + '\' -ex \'info reg\' -ex quit'
+		if opt == str(1) :
+			command = 'echo \'y\' | gdb '+ filePath +' -ex \'run '+ bufValue + '\' -ex \'info reg\' -ex quit'
+		else:
+			command = 'echo \'\'; echo '+ bufValue+' | gdb '+ filePath +' -ex \'run \' -ex \'info reg\' -ex quit'
 		print command
 		p = subprocess.Popen( command, shell=True, stdout=subprocess.PIPE, stderr = subprocess.PIPE)
 		b = p.communicate()
 		if str(b).find('Segmentation fault') != -1 :
-			print 'EIP overriding'
+			print 'Overriding EIP'
 			break
 		else:			
 			bufValue = 'BBBB%s' % bufValue
@@ -17,7 +20,10 @@ def overflow(filePath):
 	bufValue = 'BBBB%s' % bufValue
 	i = 0
 	while i < 8:
-		command = 'echo \'y\' | gdb '+ filePath +' -ex \'run '+ bufValue + '\' -ex \'info reg\' -ex quit'
+		if opt == str(1) :
+			command = 'echo \'y\' | gdb '+ filePath +' -ex \'run '+ bufValue + '\' -ex \'info reg\' -ex quit'
+		else:
+			command = 'echo \'\'; echo '+ bufValue+' | gdb '+ filePath +' -ex \'run \' -ex \'info reg\' -ex quit'
 		print command
 		p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr = subprocess.PIPE)		
 		b = p.communicate()
@@ -28,4 +34,5 @@ def overflow(filePath):
 			bufValue = bufValue[1:]
 		i = i +1
 
-overflow(raw_input(" Enter Path "))
+overflow(raw_input(" Enter Path for executable "),raw_input(" Enter Option 1. Buffer as Command line arguments 2. Buffer as User Input "))
+
