@@ -1,9 +1,13 @@
 from ictf import iCTF
+import sys
 import os
-ip = "52.34.158.221"
-team = "team1@example.com"
+#Update IP
+ip = "35.167.152.77"
+#Update Team name
+team = "kselladu@asu.edu"
 i = iCTF("http://%s/" % ip)
-t = i.login(team,"password")
+#Update Password
+t = i.login(team,"3VXEHUbdM4FG")
 serviceList = t.get_service_list()
 key_info = t.get_ssh_keys()
 with open("ctf_key", 'wb') as f:
