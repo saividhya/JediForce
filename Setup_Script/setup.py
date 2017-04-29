@@ -10,6 +10,7 @@ i = iCTF("http://%s/" % ip)
 t = i.login(team,"3VXEHUbdM4FG")
 serviceList = t.get_service_list()
 exploitPath = sys.argv[1]
+print "Creating folders...."
 for i in range(0,len(serviceList)):
 	os.mkdir(exploitPath+"/"+str(serviceList[i]['port']),0777)
-
+print "Done."
