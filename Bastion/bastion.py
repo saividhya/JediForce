@@ -361,13 +361,12 @@ def bastion():
 	logging.info("I am protecting you '" + MY_IP + "' from '" + TARGET_IP + "'")
 
 	# setup the folder structure
-	'''
 	logging.info("Creating folder structure with help of service ports")
 	if os.path.exists('./' + TRAIL_FOLDER):
 		shutil.rmtree('./' + TRAIL_FOLDER)
 	os.mkdir(TRAIL_FOLDER + "/",0766)
 	os.system("/usr/bin/python ../Setup_Script/setup.py ./" + TRAIL_FOLDER)
-	'''
+
 	# ip table rules NOTE : don't remove the target because it can cause to stop ssh packets too from incoming
 	in_to_me_ip_table_rule = 'iptables -I INPUT -s ' + TARGET_IP + ' -d ' + MY_IP + '  -j NFQUEUE --queue-num 1'
 	out_from_me_ip_table_rule = 'iptables -I OUTPUT -d ' + TARGET_IP + ' -s ' + MY_IP + '  -j NFQUEUE --queue-num 1'
