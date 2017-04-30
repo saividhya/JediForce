@@ -1,3 +1,4 @@
+news
 users
 customer
 user
@@ -1613,8 +1614,6 @@ geo_Sea
 DATA_ORG
 Contributor
 flag
-
-# Various Joomla tables
 jos_vm_product_download
 jos_vm_coupons
 jos_vm_product_reviews
@@ -1706,8 +1705,6 @@ users_tmp
 users_club
 publicusers
 cmsusers
-
-# List provided by Anastasios Monachos (anastasiosm@gmail.com)
 blacklist
 cost
 moves
@@ -1757,8 +1754,6 @@ TBLTRANSACTIONS
 TBLRETAILUSERS
 TBLCORPUSERS
 TBLCORPORATEUSERS
-
-# List from schemafuzz.py (http://www.beenuarora.com/code/schemafuzz.py)
 tbladmins
 sort
 _wfspro_admin
@@ -2043,8 +2038,6 @@ UserAdmin
 Admins
 Login
 Logins
-
-# List from http://nibblesec.org/files/MSAccessSQLi/MSAccessSQLi.html
 account
 accnts
 accnt
@@ -2112,8 +2105,6 @@ user_passw
 user_pwrd
 user_pwd
 user_passwd
-
-# List from hyrax (http://sla.ckers.org/forum/read.php?16,36047)
 wsop
 Admin
 Config
@@ -2432,11 +2423,7 @@ yhm
 yhmm
 Affichage1name
 sb_host_adminAffichage1name
-
-# site:jp
 TypesTab
-
-# site:it
 utenti
 categorie
 attivita
@@ -2576,8 +2563,6 @@ SGA_XPLAN_TPL_DBA_CONSTRAINTS
 oil_biolmed_technician
 oil_stats_agents
 SGA_XPLAN_TPL_DBA_INDEXES
-
-# site:fr
 Avion
 departement
 Compagnie
@@ -2746,8 +2731,6 @@ nuke_poll_data
 nuke_bbprivmsgs
 spip_ortho_dico
 spip_caches
-
-# site:ru
 guestbook
 binn_forum_settings
 binn_forms_templ
@@ -2843,8 +2826,6 @@ binn_form39
 binn_site_users
 binn_path_temps
 order_item
-
-# site:de
 tt_content
 kunde
 medien
@@ -3005,8 +2986,6 @@ seite_layout
 virgator_table
 wp_categories
 chessmessages
-
-# site:br
 endereco
 pessoa
 usuarios
@@ -3167,8 +3146,6 @@ manutencao
 LT_CUSTOM1
 LT_CUSTOM2
 LT_CUSTOM3
-
-# site:es
 jos_respuestas
 DEPARTAMENTO
 EMPLEADO
@@ -3205,8 +3182,6 @@ nuke_gallery_pictures_newpicture
 Books
 grupo
 facturas
-
-# site:cn
 url
 cdb_adminactions
 BlockInfo
@@ -3350,8 +3325,6 @@ pw_memberinfo
 aliastype
 mymps_mail_sendlist
 mymps_navurl
-
-# List provided by Pedrito Perez (0ark1ang3l@gmail.com)
 adminstbl
 admintbl
 affiliateUsers
@@ -3364,6 +3337,4 @@ tuser
 tusers
 userstbl
 usertbl
-
-# WebGoat
 user_data

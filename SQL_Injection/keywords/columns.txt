@@ -469,8 +469,6 @@ lname
 sale_date
 module_addr
 flag
-
-# spanish
 usuario
 nombre
 contrasena
@@ -481,8 +479,6 @@ llave
 chaveta
 tono
 cuna
-
-# german
 benutzername
 benutzer
 passwort
@@ -494,8 +490,6 @@ kennung
 motto
 stichwort
 schlusselwort
-
-# french
 utilisateur
 usager
 consommateur
@@ -505,8 +499,6 @@ passe
 cle
 touche
 clef
-
-# italian
 utente
 nome
 utilizzatore
@@ -516,19 +508,13 @@ tasto
 pulsante
 chiavetta
 cifrario
-
-# portuguese
 usufrutuario
 chave
 cavilha
-
-# slavic
 korisnik
 sifra
 lozinka
 kljuc
-
-# List from schemafuzz.py (http://www.beenuarora.com/code/schemafuzz.py)
 user
 pass
 cc_number
@@ -750,8 +736,6 @@ usrs
 warez
 xar_name
 xar_pass
-
-# List from http://nibblesec.org/files/MSAccessSQLi/MSAccessSQLi.html
 account
 accnts
 accnt
@@ -819,8 +803,6 @@ user_passw
 user_pwrd
 user_pwd
 user_passwd
-
-# List from hyrax (http://sla.ckers.org/forum/read.php?16,36047)
 fld_id
 fld_username
 fld_password
@@ -971,8 +953,6 @@ yh
 yhm
 yhmm
 yonghu
-
-# site:br
 content_id
 codigo
 geometry
@@ -1227,8 +1207,6 @@ group_perm_id
 category_child_id
 newssummaryauthor
 and_xevento
-
-# site:de
 rolle_nr
 standort_nr
 ja
@@ -1389,8 +1367,6 @@ option_name
 q_trid
 summary_id
 gameid
-
-# site:es
 catid
 dni
 prune_id
@@ -1478,8 +1454,6 @@ repid
 parent_id
 time_stamp
 bannerid
-
-# site:fr
 numero
 id_auteur
 titre
@@ -1529,8 +1503,6 @@ apid
 n_dept
 n_dir
 age
-
-# site:ru
 dt_id
 subdivision_id
 sub_class_id
@@ -1734,8 +1706,6 @@ banner_id
 error
 language_id
 val
-
-# site:jp
 dealer_id
 modify_date
 regist_date
@@ -1865,8 +1835,6 @@ product_flag
 rule
 c_commu_topic_id
 c_diary_comment_log_id
-
-# site:it
 idcomune
 idruolo
 idtrattamento
@@ -2368,8 +2336,6 @@ idgrouppermission
 modules
 client_img
 does_repeat
-
-# site:cn
 typeid
 cronid
 advid
@@ -2594,7 +2560,5 @@ tmp_lahir
 universitas
 urut
 waktu
-
-# WebGoat
 cookie
 login_count
