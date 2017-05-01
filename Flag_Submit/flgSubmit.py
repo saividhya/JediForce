@@ -2,6 +2,7 @@ from ictf import iCTF
 import os
 import stat
 from multiprocessing import Process
+import sys
 from subprocess import Popen, PIPE
 def runExploit(path,t):
 	executable = stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH
@@ -17,7 +18,7 @@ def runExploit(path,t):
 						hosts = t.get_targets(service)		
 						st = os.stat(exploitFile)
 						if st.st_mode & executable:
-							for i in range(0,len(hosts)):
+							for i in range(0,len(hosts['targets'])):
 								print "Running Script "+ exploitFile,hosts['targets'][i]['hostname'],port
 								pipe = Popen([exploitFile,hosts['targets'][i]['hostname'],port,hosts['targets'][i]['flag_id']], stdout=PIPE)
 								text = pipe.communicate()[0]	
@@ -27,13 +28,13 @@ def runExploit(path,t):
 									print flags
 									print t.submit_flag(flags)						
 if __name__ == '__main__':
-	ip = "52.34.158.221"
-	team = "team1@example.com"
+	ip = "35.167.152.77"
+	team = "kselladu@asu.edu"
 	i = iCTF("http://%s/" % ip)
-	t = i.login(team,"password")
+	t = i.login(team,"3VXEHUbdM4FG")
 	i = 0
 	processes = []
-	exploitPath = raw_input(' Enter Exploit path :')
+	exploitPath = sys.argv[1]
 	for x in os.walk(exploitPath):
 		if i <> 0:
 			process = Process(target=runExploit, args=(x[0],t))
