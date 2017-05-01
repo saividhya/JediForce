@@ -5,10 +5,8 @@ __author__ = saipranav
 # configuration
 ################################################
 # set ip for your computer and target computer
-#MY_IP = '172.31.129.12'
-#TARGET_IP = '172.31.172.1'
-MY_IP = '172.18.0.1'
-TARGET_IP = '172.18.0.3'
+MY_IP = '172.31.129.12'
+TARGET_IP = '172.31.172.1'
 TRAIL_FOLDER = 'trails'
 BLACKLIST_REGEX_FILE = 'blacklist_packets_regex.txt'
 MAX_CONVERSATIONS_PER_TRAIL_FILE = 20
@@ -68,7 +66,7 @@ def packet_analyzer(pkt):
 		global conversations
 		# netfilterqueue pkt to scapy packet
 		scapy_packet = IP(pkt.get_payload())
-		scapy_packet.show()
+		#scapy_packet.show()
 		blacklist_regex_list = read_and_check_blacklist_regexs_from_file()
 
 	#####
@@ -84,13 +82,6 @@ def packet_analyzer(pkt):
 					if blacklist_regex.search(scapy_packet[Raw].load):
 						conversations[scapy_packet[TCP].sport]['found_attacker'] = True
 						logging.warn('Attaker found with ' + str(blacklist_regex.pattern) )
-						scapy_packet[TCP].flags = TCP_FLAGS['RSTACK']
-						del scapy_packet[IP].chksum
-						del scapy_packet[TCP].chksum
-						scapy_packet.show()
-						pkt.set_payload(str(scapy_packet))
-						
-						# append the resent change to conversation as we are going to write that too
 						conversations[scapy_packet[TCP].sport]['packets'].append(scapy_packet)
 						break
 
@@ -109,8 +100,8 @@ def packet_analyzer(pkt):
 			# for all other packets with any flags
 			elif scapy_packet[TCP].sport in conversations:
 				conversations[scapy_packet[TCP].sport]['packets'].append(scapy_packet)
-			else:
-				logging.warn('Packet from target not stored due to most recent ack which cleared the conversation')
+			#else:
+				#logging.warn('Packet from target not stored due to most recent ack which cleared the conversation')
 
 
 			# packet has fin flag from target, set the target_finish
@@ -135,7 +126,7 @@ def packet_analyzer(pkt):
 			# packet has reset flag from target
 			if scapy_packet[TCP].sport in conversations and scapy_packet[TCP].flags & TCP_FLAGS['RST']:
 				logging.warn('Converstation ended in RST')
-				logging.warn(conversations[scapy_packet[TCP].sport])
+				#logging.warn(conversations[scapy_packet[TCP].sport])
 				del conversations[scapy_packet[TCP].sport]
 
 	#####
@@ -146,29 +137,25 @@ def packet_analyzer(pkt):
 		# TODO : whole working is for TCP needs to be compatible with udp too
 		elif scapy_packet[IP].src == MY_IP:
 
-			# if attacker found then this is our turn to respond
-			if scapy_packet[TCP].dport in conversations and conversations[scapy_packet[TCP].dport]['found_attacker'] == True:
-				#  set flags to RST ACK and form a netfilter packet from scapy packet
-				scapy_packet[TCP].flags = TCP_FLAGS['RSTACK']
-				del scapy_packet[IP].chksum
-				del scapy_packet[TCP].chksum
-				scapy_packet.show()
-				pkt.set_payload(str(scapy_packet))
-				
-				# append the resent change to conversation as we are going to write that too
-				conversations[scapy_packet[TCP].dport]['packets'].append(scapy_packet)
-				# write to file and del conversation
-				pcap_file_name = names.get_first_name()
-				print_packet(pcap_file_name, scapy_packet[TCP].sport, scapy_packet[TCP].dport, attacker=True)
-				write_pcap_file(pcap_file_name, scapy_packet[TCP].sport, scapy_packet[TCP].dport)
-				del conversations[scapy_packet[TCP].dport]
-				return
-
-
 			# check for the FLG content in Raw layer load
 			if scapy_packet[TCP].dport in conversations and scapy_packet.haslayer('Raw') and 'FLG' in scapy_packet[Raw].load:
 				conversations[scapy_packet[TCP].dport]['flag_theft'] = True
 
+				# if attacker found then this is our turn to respond
+				if scapy_packet[TCP].dport in conversations and conversations[scapy_packet[TCP].dport]['found_attacker'] == True:
+					new_flag = 'FLG8txk3x8ILxPIu'
+					scapy_packet[TCP].payload[Raw].load = re.sub(r'FLG.{13}', new_flag, str(scapy_packet[TCP].payload))
+					del scapy_packet[IP].chksum
+					del scapy_packet[TCP].chksum
+					pkt.set_payload(str(scapy_packet))
+
+					# append the resent change to conversation as we are going to write that too
+					conversations[scapy_packet[TCP].dport]['packets'].append(scapy_packet)
+					# write to file and del conversation
+					pcap_file_name = names.get_first_name()
+					print_packet(pcap_file_name, scapy_packet[TCP].sport, scapy_packet[TCP].dport, attacker=True)
+					write_pcap_file(pcap_file_name, scapy_packet[TCP].sport, scapy_packet[TCP].dport)
+					del conversations[scapy_packet[TCP].dport]
 
 
 			# packet has syn flag, starting new conversation
@@ -184,8 +171,8 @@ def packet_analyzer(pkt):
 			# for all other packets with any flags
 			elif scapy_packet[TCP].dport in conversations:
 				conversations[scapy_packet[TCP].dport]['packets'].append(scapy_packet)
-			else:
-				logging.warn('Packet from me not stored due to most recent ack which cleared the conversation')
+			#else:
+				#logging.warn('Packet from me not stored due to most recent ack which cleared the conversation')
 
 
 			# packet has fin flag from target, set the target_finish
@@ -209,7 +196,7 @@ def packet_analyzer(pkt):
 			# packet has reset flag from target then deletes the conversation or print
 			if scapy_packet[TCP].dport in conversations and scapy_packet[TCP].flags & TCP_FLAGS['RST']:
 				logging.warn('Converstation ended in RST')
-				logging.warn(conversations[scapy_packet[TCP].dport])
+				#logging.warn(conversations[scapy_packet[TCP].dport])
 				del conversations[scapy_packet[TCP].dport]
 
 	#####
@@ -242,7 +229,7 @@ def print_packet(pcap_file_name, service_port, conversation_port, attacker=False
 		with open(file_path, 'a') as f:
 			packets_to_write = '\n####################################################################################################\n'
 			if attacker:
-				packets_to_write += '\nBastion sent a RST packet for attacker ;) \n'
+				packets_to_write += '\nBastion sent a wrong flag for attacker ;) \n'
 			packets_to_write += '\n' + os.path.join(TRAIL_FOLDER, str(service_port), pcap_file_name) + '\n'
 
 			for scapy_packet in conversations[conversation_port]['packets']:
