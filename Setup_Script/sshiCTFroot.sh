@@ -11,5 +11,5 @@ do
 	fi
 	i=1;
 done
-chmod 400 ctf_key
-ssh -i ctf_key -p $port ctf@$ip
+chmod 400 root_key
+ssh -i root_key -p $port root@$ip
