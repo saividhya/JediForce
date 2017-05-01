@@ -2,7 +2,7 @@ from ictf import iCTF
 import sys
 import os
 #Update IP
-ip = "35.167.152.77"
+ip = "35.160.215.67"
 #Update Team name
 team = "kselladu@asu.edu"
 i = iCTF("http://%s/" % ip)
