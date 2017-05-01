@@ -1,0 +1,7 @@
+from scapy.all import *
+
+def pkt_callback(pkt):
+    pkt.show() # debug statement
+    #print pkt[TCP].op
+
+sniff(iface="eth1", prn=pkt_callback, filter="tcp", store=0, count=2)
